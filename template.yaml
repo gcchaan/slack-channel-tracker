@@ -6,12 +6,12 @@ Description: >
 Parameters:
   SlackTokenSsmPath:
     Type: String
-    Default: "slack-channel-tracker/slack-bot-user-oauth-token"
-    Description: "SSM Parameter Store path for Slack `Bot User Oauth Token`. This value should not start with a forward slash (/)."
+    Default: "/slack-channel-tracker/slack-bot-user-oauth-token"
+    Description: "SSM Parameter Store path for Slack `Bot User Oauth Token`."
   SlackSigningSecretSsmPath:
       Type: String
-      Description: "SSM Parameter Store path for Slack Signing Secret. This value should not start with a forward slash (/)."
-      Default: "slack-channel-tracker/signing_secret"
+      Description: "SSM Parameter Store path for Slack Signing Secret."
+      Default: "/slack-channel-tracker/signing_secret"
   SlackChannelId:
     Type: String
     Description: "ID of the Slack channel to post messages to. You can find the channel ID by opening the channel in Slack and looking at the URL. It will be in the format `https://app.slack.com/client/T12345678/C1234567890` where `C1234567890` is the channel ID."
@@ -38,13 +38,13 @@ Resources:
       - arm64
       Environment:
         Variables:
-          SLACK_TOKEN_SSM_PATH: !Sub "/${SlackTokenSsmPath}"
-          SLACK_SIGNING_SECRET_SSM_PATH: !Sub "/${SlackSigningSecretSsmPath}"
+          SLACK_TOKEN_SSM_PATH: !Ref SlackTokenSsmPath
+          SLACK_SIGNING_SECRET_SSM_PATH: !Ref SlackSigningSecretSsmPath
           SLACK_CHANNEL_ID: !Ref SlackChannelId
       Policies:
-        - SSMParameterReadPolicy:
+        - SSMParameterWithSlashPrefixReadPolicy:
             ParameterName: !Ref SlackTokenSsmPath
-        - SSMParameterReadPolicy:
+        - SSMParameterWithSlashPrefixReadPolicy:
             ParameterName: !Ref SlackSigningSecretSsmPath
       FunctionUrlConfig:
         AuthType: NONE
