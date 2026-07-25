@@ -27,7 +27,7 @@ aws ssm put-parameter \
 
 ```bash
 aws ssm put-parameter \
-  --name "/slack-channel-tracker/signing_secret" \
+  --name "/slack-channel-tracker/signing-secret" \
   --value "abc123xxx" \
   --type "SecureString"
 ```

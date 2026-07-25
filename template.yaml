@@ -11,7 +11,7 @@ Parameters:
   SlackSigningSecretSsmPath:
       Type: String
       Description: "SSM Parameter Store path for Slack Signing Secret."
-      Default: "/slack-channel-tracker/signing_secret"
+      Default: "/slack-channel-tracker/signing-secret"
   SlackChannelId:
     Type: String
     Description: "ID of the Slack channel to post messages to. You can find the channel ID by opening the channel in Slack and looking at the URL. It will be in the format `https://app.slack.com/client/T12345678/C1234567890` where `C1234567890` is the channel ID."
